@@ -1,0 +1,22 @@
+*{
+    box-sizing:border-box;
+}
+section {
+    display:flex;
+    justify-content:space-between;;
+    align-items:center;
+}
+section > * {
+    text-align:center;
+    width: 33.33%;
+}
+.result {
+    text-align:center;
+}
+.header {
+    text-align:center;
+    display:flex;
+}
+.header > * {
+    width: 33.33%
+}
