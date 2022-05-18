@@ -1,11 +1,8 @@
-//get deck
-//store deck id locally
 let newDeckBtn = document.querySelector('.btnDeck')
 let resetDeck = document.querySelector(`.btnReset`)
 let drawCardBtn = document.querySelector(`.drawCards`)
 newDeckBtn.addEventListener('click', fetchDeck)
 let winner
-
 
 function fetchDeck() {
     fetch(`https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1`)
@@ -47,72 +44,74 @@ function createDecks(data) {
 function letsPlay(deckOne, deckTwo) {
     if(winner == undefined) {
 
-    let discardOneDeck = []
-    let discardTwoDeck = []
-    let warStakes = []
-    let cardOne, cardTwo,valOne,valTwo
-    const result = document.querySelector('.result')
+        let discardOneDeck = []
+        let discardTwoDeck = []
+        let warStakes = []
+        let cardOne, cardTwo,valOne,valTwo
+        const result = document.querySelector('.result')
 
-    drawCardBtn.addEventListener('click', drawCards)
-    
-    function drawCards() {
-        if(deckOne.length > 0 && deckTwo.length > 0) {
-
-            cardOne = deckOne.pop()
-            warStakes.push(cardOne)
-            document.querySelector(`.cardOne`).src = cardOne.image
-    
-            cardTwo = deckTwo.pop()
-            warStakes.push(cardTwo)
-            document.querySelector(`.cardTwo`).src = cardTwo.image
-    
-            valOne = getCardVal(cardOne)
-            valTwo = getCardVal(cardTwo)
-    
-            checkWin(valOne,valTwo)
-        } else combineDeck()
-
-    }
-
-    function checkWin(valOne,valTwo) {
-        if(valOne > valTwo) {
-            discardOneDeck = discardOneDeck.concat(warStakes)
-            warStakes =[]
-            result.innerText = `Player 1 wins this round! Draw Again!`
-        } else if( valTwo > valOne) {
-            discardTwoDeck = discardTwoDeck.concat(warStakes)
-            warStakes = []
-            result.innerText = `Player 2 wins this round! Draw Again!`
-        } else if(valOne === valTwo) {
-            result.innerText = `It's WAR!`
-            initiateWar()
-        }
-    }
-
-    function initiateWar() {
-        let totalCardsOne = deckOne.length + discardOneDeck.length
-        let totalCardsTwo = deckTwo.length + discardTwoDeck.length
-
-        if(totalCardsOne > 3 && totalCardsTwo > 3) {
-            for(let i = 0; i < 3; i++) {
-                warStakes.push(deckOne.pop())
-                warStakes.push(deckTwo.pop())
-            }
-            drawCards()
-        } else gameOver(totalCardsOne,totalCardsTwo)
+        drawCardBtn.addEventListener('click', drawCards)
         
-    }
+        function drawCards() {
+            if(deckOne.length > 0 && deckTwo.length > 0) {
 
-    function combineDeck() {
-        deckOne = shuffleDeck(deckOne.concat(discardOneDeck))
-        deckTwo = shuffleDeck(deckTwo.concat(discardTwoDeck))
-        discardOneDeck = []
-        discardTwoDeck = []
-        if(deckOne.length === 0 || deckTwo.length === 0) {
-            gameOver(deckOne.length, deckTwo.length)
+                cardOne = deckOne.pop()
+                warStakes.push(cardOne)
+                document.querySelector(`.cardOne`).src = cardOne.image
+        
+                cardTwo = deckTwo.pop()
+                warStakes.push(cardTwo)
+                document.querySelector(`.cardTwo`).src = cardTwo.image
+        
+                valOne = getCardVal(cardOne)
+                valTwo = getCardVal(cardTwo)
+        
+                checkWin(valOne,valTwo)
+            } else combineDeck()
+
+        }
+
+        function checkWin(valOne,valTwo) {
+
+            if(valOne > valTwo) {
+                discardOneDeck = discardOneDeck.concat(warStakes)
+                warStakes =[]
+                result.innerText = `Player 1 wins this round! Draw Again!`
+            } else if( valTwo > valOne) {
+                discardTwoDeck = discardTwoDeck.concat(warStakes)
+                warStakes = []
+                result.innerText = `Player 2 wins this round! Draw Again!`
+            } else if(valOne === valTwo) {
+                result.innerText = `It's WAR!`
+                initiateWar()
+            }
+        }
+
+        function initiateWar() {
+
+            let totalCardsOne = deckOne.length + discardOneDeck.length
+            let totalCardsTwo = deckTwo.length + discardTwoDeck.length
+
+            if(totalCardsOne > 3 && totalCardsTwo > 3) {
+                for(let i = 0; i < 3; i++) {
+                    warStakes.push(deckOne.pop())
+                    warStakes.push(deckTwo.pop())
+                }
+                drawCards()
+            } else gameOver(totalCardsOne,totalCardsTwo)
+            
+        }
+
+        function combineDeck() {
+            deckOne = shuffleDeck(deckOne.concat(discardOneDeck))
+            deckTwo = shuffleDeck(deckTwo.concat(discardTwoDeck))
+            discardOneDeck = []
+            discardTwoDeck = []
+            if(deckOne.length === 0 || deckTwo.length === 0) {
+                gameOver(deckOne.length, deckTwo.length)
+            }
         }
     }
-}
 }
 
 function gameOver(l1,l2) {
@@ -134,7 +133,7 @@ function shuffleDeck(a) {
 }
 
 function getCardVal(card){
-    console.log(card)
+    
     switch(card.value) {
         case 'ACE' : return 14
         break;
