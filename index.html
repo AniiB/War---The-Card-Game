@@ -9,23 +9,34 @@
     </head>
     <body>
         <div class ="header">
-            <h1>Player One</h1>
+            <div>
+                <h1>Player One</h1>
+                <h3>Cards remaining in deck: <span class = "deckValOne">0</span> </h3>
+                <h3>Cards in discard pile: <span class = discardValOne>0</span> </h3>
+            </div>
+
+
             <div>
                 <button class = "btnDeck">Get Deck</button>
                 <button class = "btnReset">Reset Deck</button>
 
             </div>
-            <h1>Player Two</h1>
+
+            <div>
+                <h1>Player Two</h1>
+                <h3>Cards remaining in deck: <span class ="deckValTwo">0</span> </h3>
+                <h3>Cards in discard pile: <span class ="discardValTwo">0</span> </h3>
+            </div>
         </div>
 
         <section>
             <div>
-
                 <img class = "deckOne" src="" alt="">
                 <img class = "cardOne" src="" alt="">
             </div>
 
             <div>
+                <h3>Cards at stake this round : <span class = "warStakes"></span></h3>
                 <button class ="drawCards">Draw Cards</button>
             </div>
 
@@ -36,8 +47,6 @@
             </div>
         </section>
 
-
-       
         <h3 class ="result"></h3>
         <script src="js/main.js" type="text/javascript"></script>
     </body>
